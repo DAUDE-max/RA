@@ -5,7 +5,7 @@ compiles assembly into machine code
 Compiles into executable and lincable on linux 32-bits
 
 -l (Before name)
-makes listing file
+makes listing file used in seeing how the compiler works
 
 eg:
 nasm -f elf32 HelloWorld.asm -l HelloWorld.lst
