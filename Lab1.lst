@@ -1,0 +1,49 @@
+     1                                  ;
+     2                                  ;---------------------------------------------------------------
+     3                                  ; Lab1.asm
+     4                                  ; 
+     5                                  ;
+     6                                  ; Author: NSFR
+     7                                  ;
+     8                                  ; ---------------------------------------------------------------
+     9                                  
+    10                                  ; declaration of functions that are not defined in the module being assembled, i.e. this file
+    11                                  
+    12                                  extern printf; Using the  c function for output - the object file needs to be linked with a C library
+    13                                  
+    14                                  section .data ; defines which section of the output file the code will be assembled into
+    15                                                ; here: initialised data
+    16                                                ; segment can be used instead (exactly equivalent synonym)
+    17                                  
+    18 00000000 2564200A00                decformat: db `%d \n`,0 ; we define the decimal format for use with C's printf function
+    19 00000005 25780A00                  hexformat: db `%x\n`,0    ; and the hex format
+    20 00000009 110000000B00000004-       v1: dd 17, 11, 4 
+    20 00000012 000000             
+    21 00000015 04000000F7FFFFFF08-       v2: dd 4, -9, 8
+    21 0000001E 000000             
+    22 00000021 03000000                  lenght: dd 3
+    23                                  
+    24                                  section .text    ;code segment starts here
+    25                                  
+    26                                  global main
+    27                                  
+    28                                  main:
+    29                                  
+    30 00000000 55                            push ebp
+    31 00000001 89E5                          mov ebp, esp
+    32 00000003 B900000000                    mov ecx, 0
+    33 00000008 BA00000000                    mov edx, 0
+    34 0000000D 8B048D[09000000]        next: mov eax, [v1+4*ecx]
+    35 00000014 8B1C8D[15000000]              mov ebx, [v2+4*ecx]
+    36 0000001B 0FAFC3                        imul eax,ebx
+    37 0000001E 01C2                          add edx, eax
+    38 00000020 41                            inc ecx
+    39 00000021 3B0D[21000000]                cmp ecx, [lenght]
+    40 00000027 75E4                          jne next
+    41 00000029 52                            push edx
+    42 0000002A 68[05000000]                  push hexformat
+    43 0000002F E8(00000000)                  call printf
+    44 00000034 B800000000                    mov eax,0      ; returning 0 by convention
+    45 00000039 89EC                          mov esp, ebp   ; clean up after ourselves 
+    46 0000003B 5D                            pop ebp        ; leave could be used alternatively for the last two commands
+    47 0000003C C3                         ret
