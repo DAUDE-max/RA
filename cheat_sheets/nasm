@@ -1,0 +1,11 @@
+nasm 
+compiles assembly into machine code
+
+-f elf32
+Compiles into executable and lincable on linux 32-bits
+
+-l (Before name)
+makes listing file
+
+eg:
+nasm -f elf32 HelloWorld.asm -l HelloWorld.lst

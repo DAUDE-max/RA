@@ -1,0 +1,52 @@
+#Cheat sheet für Assembly
+By Axel
+
+Nützliche Register:
+(sobald uns der Nutzen erklärt wird, füge ich es ein)
+
+EAX	Acummulator
+ECX	Count
+EDX	Doubble
+EBX	Base
+ESI	Source Index
+EDI	Destination Index
+
+Register, aber besser nicht anfassen
+ESP	Stack Pointer
+EBP	Base Pointer
+
+
+
+Nützliche Operationen (falls ein Output existiert, wird er auf das erste Register gesetzt)
+
+mov	Dest	Src	Kopiert Inhalt vom zweiten Register zum ersten
+xchg	Reg1	Reg2	Vertauscht die beiden Werte
+push	Source		Pusht den Inhalt des Registers in den Stack
+add	Dest	Src	Addirte Src auf Dest
+sub	Dest	Src	Subtrahiert Scr von Dest (Dest=Src-Dest)
+imul	Dest	Src	Scr	Multiplies signed number (up to 3)
+div	Dest	Src	Divides, saves extra in EDX (I think)
+inc	Dest		Increases by 1
+dec	Dest		Decreases by 1
+sal	Dest		moves the number x bits to the left (111=>110 mit overflow) (signage isn't kept)
+sar	Dest		moves number to the right; saves the signature through vodoo magic
+shr	Dest		like sar, but doesn´t keep signage
+AND	Dest	Src	Bitwise and Operation
+OR	Dest	Src	Bitwise or Operation
+TEST	Reg1	Reg2	Bitwise and Operation, but only changes the flags
+cmp	Reg1	Reg2	Like  sub, but only updates flags
+jmp	Location	Jumps to that location
+LOOP	Location	Decrements ECX by one and jumps if ECX !==0
+
+
+Flags (and jumps related to them. They update after each operation
+jz	ZF	Zero flag	Triggers if the last operation resulted in 0
+jnz	Contrary
+js	SF	Sign flag	Triggers if teh last operation resulted in a negative number
+jns	Contrary
+jo	OF	Overflow flag	Triggers if overflow (like carry, but the number still is isn`t carrying into the next bit
+jno	Contrary
+jc	CF	Carry flag	Triggers if a carry happened on the last operation (unsigned operation)
+jnc	Contrary
+jp	PF	Parry flag	Triggers if a an even parity hapened (even number of 1s in the number)
+jnp	Contrary

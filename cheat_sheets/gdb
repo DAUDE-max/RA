@@ -1,0 +1,42 @@
+gdb Ist ein debugger, der im Terminal läuft. Er ist aber teilweise etwas unübersichtlich (vielleicht mit mehr display besser?)
+
+gdb ./executable
+starts with the executable
+
+(gdb)
+=> always shows while gdb is running
+
+(gdb) run
+runs the code
+
+(gdb) break where
+break bei where (*where + x) macht x bytes nach der Funktion
+when where eine nummer ist, wird ein break bei der Zeile nummer where im sourcecode ausgefürt
+
+(gdb) n or ni
+when in a break, go to next line (line that is shown IS GOING TO BE executed) 
+e.g. when you are in line 5, and line 5 says that int a = 1, int a isn´t already 1 (it might not even exist)
+
+(gdb) cont
+continues to the next breakpoint normally
+
+(gdb) p variable
+prints the content of the variable
+
+(gdb) p variable = whatever
+sets the variable to whatever, then prints it
+
+(gdb) info break
+gives all the information about the breakpoint
+
+(gdb) clear breakpoint
+clears that specific breakpoint
+
+(gdb) layout regs
+shows all current registers and their contents
+
+(gdb) x /nummerd &variablename
+shows an array of number lenght
+
+(gdb) q
+exits gdb
