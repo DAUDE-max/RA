@@ -22,6 +22,7 @@ Nützliche Operationen (falls ein Output existiert, wird er auf das erste Regist
 mov	Dest	Src	Kopiert Inhalt vom zweiten Register zum ersten
 xchg	Reg1	Reg2	Vertauscht die beiden Werte
 push	Source		Pusht den Inhalt des Registers in den Stack
+pop	Sorce		Holt den letzten Inhalt aus den Stack raus
 add	Dest	Src	Addirte Src auf Dest
 sub	Dest	Src	Subtrahiert Scr von Dest (Dest=Src-Dest)
 imul	Dest	Src	Scr	Multiplies signed number (up to 3)
@@ -37,12 +38,15 @@ TEST	Reg1	Reg2	Bitwise and Operation, but only changes the flags
 cmp	Reg1	Reg2	Like  sub, but only updates flags
 jmp	Location	Jumps to that location
 LOOP	Location	Decrements ECX by one and jumps if ECX !==0
+call	Location	jumps to that location and does it while saving its source in the stack for
+ret			(return) Returns back to the latest call
+extern	Function_name	the #import of asm
 
 
 Flags (and jumps related to them. They update after each operation
 jz	ZF	Zero flag	Triggers if the last operation resulted in 0
 jnz	Contrary
-js	SF	Sign flag	Triggers if teh last operation resulted in a negative number
+js	SF	Sign flag	Triggers if the last operation resulted in a negative number
 jns	Contrary
 jo	OF	Overflow flag	Triggers if overflow (like carry, but the number still is isn`t carrying into the next bit
 jno	Contrary
@@ -50,3 +54,14 @@ jc	CF	Carry flag	Triggers if a carry happened on the last operation (unsigned op
 jnc	Contrary
 jp	PF	Parry flag	Triggers if a an even parity hapened (even number of 1s in the number)
 jnp	Contrary
+
+
+variable/destination_name:	a location where code can be written or a variable can be stored
+[variable_name]		Way to acces a variable
+variable_name: format variable_value
+
+Variable formats: 
+dd (double digit, just a normal 32bit)
+arrays of strings are just v1: dd 10,11,12, accesed by using [vi+4*x]
+db (string, written `string`0 (the 0 tells it to stop reading))
+
