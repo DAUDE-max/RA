@@ -2,7 +2,7 @@
 By Axel
 
 Nützliche Register:
-(sobald uns der Nutzen erklärt wird, füge ich es ein)
+(sobald uns der Nutzen erklärt wird, füge ich es ein) (befinden sich in der CPU)(
 
 EAX	Acummulator
 ECX	Count
@@ -11,9 +11,9 @@ EBX	Base
 ESI	Source Index
 EDI	Destination Index
 
-Register, aber besser nicht anfassen
-ESP	Stack Pointer
-EBP	Base Pointer
+Register, aber besser nicht anfassen (Vom Stack, welcher sich in der Ram befindet)
+ESP	Stack Pointer- Points to the current top of the stack
+EBP	Base Pointer- Hält den Wert vom Esp aufrufenden Programm fest
 
 
 
