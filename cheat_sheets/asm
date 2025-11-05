@@ -6,7 +6,7 @@ Nützliche Register:
 
 EAX	Acummulator
 ECX	Count
-EDX	Doubble
+EDX	Doubble- used if an output is greater than the lenght of the possible output
 EBX	Base
 ESI	Source Index
 EDI	Destination Index
@@ -25,7 +25,7 @@ push	Source		Pusht den Inhalt des Registers in den Stack
 pop	Sorce		Holt den letzten Inhalt aus den Stack raus
 add	Dest	Src	Addirte Src auf Dest
 sub	Dest	Src	Subtrahiert Scr von Dest (Dest=Src-Dest)
-imul	Dest	Src	Scr	Multiplies signed number (up to 3)
+imul	Dest	Src	Scr	Multiplies signed number (up to 3). If no Scr is given, it is multiplyed by eax and saved on edx. Overflow is savend in edx
 div	Dest	Src	Divides, saves extra in EDX (I think)
 inc	Dest		Increases by 1
 dec	Dest		Decreases by 1
