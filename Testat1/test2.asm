@@ -16,7 +16,8 @@ section .data ; defines which section of the output file the code will be assemb
               ; segment can be used instead (exactly equivalent synonym)
 
   decformat: db `%d \n`,0 ; we define the decimal format for use with C's printf function
-  n: dd 20
+  n: dd 10
+
 
 section .text    ;code segment starts here
 
@@ -24,24 +25,34 @@ global main
 
 main:
       push ebp
-      mov ebp, esp
+      push esp
 
-      mov ecx, 0 ;Counter
-      mov edx, 0 ;Storage
-      mov eax, 0 ;var1
-      mov ebx, 1 ;var2
+      mov ebx, 0 ;Counter
+      push 0     ;var1 im Stack
+      mov edx, 1 ;var2
+      push edx   ;var 2 -> Stack
+
 
 next:
+      
       push edx
       push decformat
-      inc ecx
-      call printf
+      call printf  
+      add esp, 8
       
-      cmp ecx, [n] 
+      pop edx
+      pop eax
+
+      push edx
+      add edx, eax
+      push edx 
+      
+
+      inc ebx
+      cmp ebx, [n] 
       jne next
 
       add esp, 8
-      mov eax,0      ; returning 0 by convention
-      mov esp, ebp   ; clean up after ourselves 
-      pop ebp        ; leave could be used alternatively for the last two commands
+      pop esp
+      pop ebp  
    ret
