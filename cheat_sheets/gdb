@@ -22,6 +22,8 @@ continues to the next breakpoint normally
 
 (gdb) p variable
 prints the content of the variable
+/t to print binary
+
 
 (gdb) p variable = whatever
 sets the variable to whatever, then prints it
