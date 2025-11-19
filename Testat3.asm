@@ -1,65 +1,67 @@
-extern printf;
+extern printf
+extern atoi
 
 section .data
   decformat: db `%d \n`,0
-  n: dd
-  m: dd 
 
 section .text
 
 global main
-mov [n], ebp
-mov [m], esp
-
 main:
-  ; Check if 1 arg
-  add esp, 4
-  pop ebx
-  cmp ebx, 1
+  push ebp
+  mov ebp, esp
+
+; Check if 1 arg
+  mov eax, [ebp+8]
+  cmp eax, 2
   jne ende
 
   ; Check arg > 0
-  add esp, 8
-  pop ebx
+  mov ebx, [ebp +12]
+  push dword[ebx+4]
+  call atoi
+  add esp, 4
+  mov ebx, eax
   cmp ebx, 0
   jna ende
+  jmp arbeit
 
-  ; Jetzt arbeiten mit arg
-arbeite:
+  arbeit:
   push ebx
-  DIV ebx, 2
+  push decformat
+  call printf
+  add esp, 4
+
+  pop ebx
+  cmp ebx, 1
+  je ende
+
+  mov eax, ebx
+  cdq
+  mov ecx, 2
+  idiv ecx
   cmp edx, 0
   je gerade
-  jne ungerade
+  jmp ungerade
 
 gerade:
   ;fall gerade
-  pop ebx
-  div ebx, 2
-  push ebx
-  jmp print
+  mov ebx, eax
+  jmp arbeit
 
 ungerade:
   ;fall unegarde
-  pop ebx
-  mul ebx, 3
-  add ebx, 1
-  push ebx
-  jmp print
+  mov eax, ebx
+  mov ecx, 3
+  imul eax, ecx
+  add eax, 1
+  mov ebx, eax
+  jmp arbeit
 
-print:
-  ;abbruch und print
-  push decformat
-  push printf
-  add esp, 12
-  cmp ebx, 1
-  je ende
-  jne arbeit
-
-  mov ebp, [n]
-  mov esp, [m]
+ende:
+  add esp, 4
+  mov esp, ebp
+  pop ebp
 ret
 
 
-  
-  
