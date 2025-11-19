@@ -14,7 +14,7 @@ main:
 ; Check if 1 arg
   mov eax, [ebp+8]
   cmp eax, 2
-  jne ende
+  jne error
 
   ; Check arg > 0
   mov ebx, [ebp +12]
@@ -23,10 +23,9 @@ main:
   add esp, 4
   mov ebx, eax
   cmp ebx, 0
-  jna ende
-  jmp arbeit
+  jng error
 
-  arbeit:
+arbeit:
   push ebx
   push decformat
   call printf
