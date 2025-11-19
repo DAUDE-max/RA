@@ -37,7 +37,7 @@ gerade:
   pop ebx
   div ebx, 2
   push ebx
-  j print
+  jmp print
 
 ungerade:
   ;fall unegarde
@@ -45,7 +45,7 @@ ungerade:
   mul ebx, 3
   add ebx, 1
   push ebx
-  j print
+  jmp print
 
 print:
   ;abbruch und print
