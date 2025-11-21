@@ -39,6 +39,7 @@ cmp	Reg1	Reg2	Like  sub, but only updates flags
 jmp	Location	Jumps to that location
 LOOP	Location	Decrements ECX by one and jumps if ECX !==0
 call	Location	jumps to that location and does it while saving its source in the stack for
+cdq			Verbindet EAX und EDX sodass in EAX das Ganzteilige Teil einer Division erschient und in EDX der Rest
 ret			(return) Returns back to the latest call
 extern	Function_name	the #import of asm
 
