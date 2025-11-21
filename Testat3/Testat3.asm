@@ -5,7 +5,7 @@ extern atoi
 
 section .data
 	decformat: db `%d \n`,0
-
+        Fehler: db `Ein Fehler ist aufgetreten!\n`,0
 section .text
 
 global main
@@ -58,9 +58,13 @@ ungerade:
 	add eax, 1
 	mov ebx, eax
 	jmp arbeit
+
+error:
+        push Fehler
+        call printf
+
 ende:
 	add esp, 4
-error:
 	mov esp, ebp
 	pop ebp
 ret
