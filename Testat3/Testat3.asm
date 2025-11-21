@@ -1,3 +1,5 @@
+;Programm von Max Schmidt und Axel Soler García
+
 extern printf
 extern atoi
 
