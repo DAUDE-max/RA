@@ -18,16 +18,14 @@ TARGETS += $(BIN_DIR)/Testat3
 #################################################
 
 MACHINE := $(shell uname -m)
-$(info $$MACHINE is $(MACHINE))
-ifeq ($(MACHINE), i686)
-  	CFLAGS = -g -Wall
-	NFLAGS = -f elf32
 endif
 
 #### Fixed variable definitions
 NASM = nasm
 
 
+NFLAGS = -f elf32
+CFLAGS = -g -Wall
 CC = gcc
 RM_DIR = rm -rf
 MKDIR = mkdir
