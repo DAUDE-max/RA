@@ -56,9 +56,9 @@ ungerade:
 	add eax, 1
 	mov ebx, eax
 	jmp arbeit
-error:
 ende:
 	add esp, 4
+error:
 	mov esp, ebp
 	pop ebp
 ret
