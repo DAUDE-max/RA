@@ -16,7 +16,7 @@ section .data ; defines which section of the output file the code will be assemb
               ; segment can be used instead (exactly equivalent synonym)
 
   decformat: db `%d \n`,0 ; we define the decimal format for use with C's printf function
-  n: dd 10
+  n: dd 40
 
 
 section .text    ;code segment starts here
