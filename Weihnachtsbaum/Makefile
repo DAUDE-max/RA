@@ -10,8 +10,7 @@
 #
 
 # Please add targets in ./bin here
-TARGETS += $(BIN_DIR)/Testat3gezaehlt
-TARGETS += $(BIN_DIR)/Testat3
+TARGETS += $(BIN_DIR)/Weihnachtsbaum
  
 #################################################
 # There is no need to edit below this line
