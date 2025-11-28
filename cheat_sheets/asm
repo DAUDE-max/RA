@@ -4,9 +4,9 @@ By Axel
 Nützliche Register:
 (sobald uns der Nutzen erklärt wird, füge ich es ein) (befinden sich in der CPU)(
 
-EAX	Acummulator
-ECX	Count
-EDX	Doubble- used if an output is greater than the lenght of the possible output
+EAX	Acummulator ;Kann von Funktionen verändert werden
+ECX	Count       ;Kann von Funktionen verändert werden
+EDX	Doubble- used if an output is greater than the lenght of the possible output; Kann von Funktionen verändert werden
 EBX	Base
 ESI	Source Index
 EDI	Destination Index
