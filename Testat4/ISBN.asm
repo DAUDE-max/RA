@@ -17,13 +17,12 @@ main:
 	mov eax, [ebp+8]
 	cmp eax, 2
 	jne error
+        mov eax, 0
 
-	; Check arg > 0
-	mov ebx, [ebp +12]
+	mov edx, ebp
+        add edx, 16
 	;ISBN saved at [ebx+4]	
-	mov edx, ebx
-	add edx, 4
-	call checkdigit
+        call checkdigit
 	add edx, 1
 	call checkdigit
 	add edx, 1
@@ -45,7 +44,7 @@ checkchar:
 	sal eax, 24
 	shr eax, 24
 	cmp eax, ecx
-	jz checkret
+	js checkret
 checkerror:
 	mov eax, 1
 	ret
@@ -58,20 +57,20 @@ checkdigit:
 	; compares the value of [edx] and sees if it is a digit, and returns eax=0 if they are the same
 	; it does not change edx not ecx
 	push eax
-	mov eax, [edx]
+        mov eax, 0
+        mov al, [edx]
 	; only first char is kept
-	sal eax, 24
-	shr eax, 24
-	sub eax, 48 ;  transforms into number
-	jz digiterror
-	sub eax, 10
-	jz digitret
+	sub al, '0' ;  transforms into number
+	cmp al, 9
+        ja digiterror
+	jmp digitret
 digiterror:
-	mov eax, 1
+        pop eax
+        mov eax, 1
 	ret
 digitret:
 	pop eax
-	ret
+        ret
 
 validation:
 	; Das ist dein Tel
