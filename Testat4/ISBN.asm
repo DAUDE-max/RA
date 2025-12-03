@@ -6,6 +6,7 @@ extern atoi
 
 section .data
 	decformat: db `%d \n`,0
+        Formatrichtig: db `Das Format stimmt!\n`,0
         Fehler: db `Ein Fehler ist aufgetreten!\n`,0
 section .text
 
@@ -28,6 +29,11 @@ main:
         add esp, 4 
         cmp eax, 1
         jz error
+        
+        push Formatrichtig
+        call printf
+        add esp, 4
+        
         jmp validation
         
 
