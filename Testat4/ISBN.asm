@@ -1,5 +1,6 @@
 ;Programm von Max Schmidt und Axel Soler García
 
+extern ISBNcheck
 extern printf
 extern atoi
 
@@ -19,62 +20,21 @@ main:
 	jne error
         mov eax, 0
 
-	mov edx, ebp
-        add edx, 16
-	;ISBN saved at [ebx+4]	
-        call checkdigit
-	add edx, 1
-	call checkdigit
-	add edx, 1
-	call checkdigit
-
-	cmp eax, 1
-	jz error
-	jmp validation
-
-
-
-
-checkchar:
-	; compares the value of ecx and the value of [edx], and returns eax=0 if they are the same
-	; it does not change edx not ecx
-	push eax
-	mov eax, [edx]
-	; only first char is kept
-	sal eax, 24
-	shr eax, 24
-	cmp eax, ecx
-	js checkret
-checkerror:
-	mov eax, 1
-	ret
-
-checkret:
-	pop eax
-	ret
-
-checkdigit:
-	; compares the value of [edx] and sees if it is a digit, and returns eax=0 if they are the same
-	; it does not change edx not ecx
-	push eax
-        mov eax, 0
-        mov al, [edx]
-	; only first char is kept
-	sub al, '0' ;  transforms into number
-	cmp al, 9
-        ja digiterror
-	jmp digitret
-digiterror:
-        pop eax
-        mov eax, 1
-	ret
-digitret:
-	pop eax
-        ret
+        ;Wegen irgend einen Grund ist das zweite Argument hinter 2 Pointer versteckt. Ich hasse Assembly
+	mov edx, [ebp+12]
+        mov edx, [edx+4]
+        push edx 
+        call ISBNcheck
+        add esp, 4 
+        cmp eax, 1
+        jz error
+        jmp validation
+        
 
 validation:
-	; Das ist dein Tel
-	jmp ende
+	; Das ist dein Teil
+        ; Der ISBN ist in [edx] gespeichert
+        jmp ende
 
 error:
 	push Fehler

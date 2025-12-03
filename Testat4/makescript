@@ -1,0 +1,21 @@
+# ! /usr/bin/env bash
+
+#./makescript to compile
+#./makescript clean to clean up
+
+if [[ "$1" == "clean" ]]; then
+    rm -rf bin
+    exit 0
+fi
+
+nasm -f elf32 ISBN.asm
+nasm -f elf32 ISBN_check.asm
+
+mkdir -p bin
+
+mv *.o bin
+
+
+
+gcc -g -Wall bin/ISBN.o bin/ISBN_check.o -o bin/ISBN 
+
