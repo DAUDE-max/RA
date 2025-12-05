@@ -34,13 +34,8 @@ main:
         call printf
         add esp, 4
         
-        jmp validation
-        
+        jmp ende        
 
-validation:
-	; Das ist dein Teil
-        ; Der ISBN ist in [edx] gespeichert
-        jmp ende
 
 error:
 	push Fehler
