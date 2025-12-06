@@ -7,8 +7,8 @@ extern printf
 extern atoi
 
 section .data
-	decformat: db `Die Pruefziffer ist %1d \n`,0
-        Fehler: db `Ein Fehler ist beim checken aufgetreten!\n`,0
+	decformat: db `Die Pruefziffer ist %d \n`,0
+        Fehler: db `Das Format ist nicht richtig!\n`,0
         digitcounter: dd 0
         bindecounter: dd 0
         totalcounter: dd 0
@@ -19,9 +19,9 @@ ISBNcheck:
         ;z.B.: 978-3-455-01430\0
         ;erste 3 Zahlen werden gecheckt
        
+        mov edx, [esp+4]
         push esi; Insgessammte Zahl
         push edi
-        mov edx, [esp+4]
        
         mov [totalcounter], dword 0
         mov [digitcounter], dword 0
@@ -39,13 +39,16 @@ loop:
         add [digitcounter], dword 1
         call sumdigit
         mov eax, 0
+        inc edx
         jmp loop
 loopcheckchar:
         mov ecx, '-'
+        mov eax, 0
         call checkchar
         cmp eax, 0
         jnz ERROR
         add [bindecounter], dword 1
+        inc edx
         jmp loop
 
 endloop:
@@ -57,19 +60,23 @@ endloop:
 
 
         ;'\0' wird geckeckt
-        add edx, 1
         mov ecx, 0
         call checkchar
         cmp eax, 0
         jnz ERROR
-        mov eax, esi
-        ecq 
-        mov edi, 10
-              ;dividiert eax durch angegebene
         
-        idiv edi; resultat in edx
+        cdq
+        mov eax, esi
+        mov edx, 0
+        mov esi, 10
+
+        idiv esi; hopefully the value is saved in edx
         mov eax, 10
         sub eax, edx
+        cmp eax, 10
+        jnz Pruefnot0
+        mov eax, 0
+Pruefnot0:
         push eax
         push decformat
         call printf
@@ -126,7 +133,7 @@ checkdigit:
 	; only first char is kept
 	sub al, '0' ;  transforms into number
         mov edi, eax
-	cmp al, 9
+        cmp al, 9
         ja digiterror
 	jmp digitret
 digiterror:

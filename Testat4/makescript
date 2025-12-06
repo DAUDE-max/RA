@@ -8,14 +8,16 @@ if [[ "$1" == "clean" ]]; then
     exit 0
 fi
 
-nasm -f elf32 ISBN.asm
-nasm -f elf32 ISBN_check.asm
+if [[ -z "$1" ]]; then
+    nasm -f elf32 ISBN.asm
+    nasm -f elf32 ISBN_check.asm
 
-mkdir -p bin
+    mkdir -p bin
 
-mv *.o bin
+    mv *.o bin
+    gcc -g -Wall bin/ISBN.o bin/ISBN_check.o -o bin/ISBN 
+    exit 0
+fi
 
-
-
-gcc -g -Wall bin/ISBN.o bin/ISBN_check.o -o bin/ISBN 
-
+echo "Please enter a valid option"
+exit 1
